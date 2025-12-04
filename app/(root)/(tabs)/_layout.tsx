@@ -8,42 +8,54 @@ const TabIcon = ({
   source: ImageSourcePropType;
   focused: boolean;
 }) => (
-  <View
-    className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300 p-3" : ""}`}
-  >
+  <View className="items-center justify-center">
     <View
-      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      className={`rounded-full w-12 h-12 items-center justify-center ${
+        focused ? "bg-general-400" : ""
+      }`}
     >
       <Image
         source={source}
-        tintColor="white"
         resizeMode="contain"
-        className="w-7 h-7"
+        className="w-6 h-6"
+        style={{ tintColor: "white" }}
       />
     </View>
   </View>
 );
+
 const TabLayout = () => {
   return (
     <Tabs
-      initialRouteName="index"
+      initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "white",
-        tabBarShowLabels: false,
+        tabBarShowLabel: false,
+
         tabBarStyle: {
           backgroundColor: "#333",
           borderRadius: 50,
-          paddingBottom: 0,
-          overflow: "hidden",
           marginHorizontal: 20,
           marginBottom: 20,
-          height: 78,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
+          height: 60,
           position: "absolute",
+          borderTopWidth: 0,
+
+          // ✅ important
+          paddingTop: 10,
+          paddingBottom: 10,
+        },
+
+        // ✅ This fixes vertical alignment
+        tabBarContentContainerStyle: {
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
+        },
+
+        tabBarItemStyle: {
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
         },
       }}
     >
@@ -52,7 +64,7 @@ const TabLayout = () => {
         options={{
           title: "Home",
           headerShown: false,
-          tabBarIcon: (focused) => (
+          tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} source={icons.home} />
           ),
         }}
@@ -62,7 +74,7 @@ const TabLayout = () => {
         options={{
           title: "Rides",
           headerShown: false,
-          tabBarIcon: (focused) => (
+          tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} source={icons.list} />
           ),
         }}
@@ -72,7 +84,7 @@ const TabLayout = () => {
         options={{
           title: "Chat",
           headerShown: false,
-          tabBarIcon: (focused) => (
+          tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} source={icons.chat} />
           ),
         }}
@@ -82,7 +94,7 @@ const TabLayout = () => {
         options={{
           title: "Profile",
           headerShown: false,
-          tabBarIcon: (focused) => (
+          tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} source={icons.profile} />
           ),
         }}
